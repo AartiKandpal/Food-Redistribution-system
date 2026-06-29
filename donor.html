@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Donate Food | Food Rescue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .donor-card {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .form-label { fw-bold: color: #444; }
+        .map-help {
+            background: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-success shadow-sm mb-5">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/"><i class="fas fa-arrow-left me-2"></i> Back to Dashboard</a>
+            <span class="navbar-text text-white">Posting as: <strong>{{ current_user.username }}</strong></span>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card donor-card p-4 p-md-5">
+                    <h2 class="text-center fw-bold text-success mb-4"><i class="fas fa-hand-holding-heart me-2"></i>Donate Surplus Food</h2>
+                    
+                    <form action="/add_food" method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label font-weight-bold">What are you donating?</label>
+                                <input type="text" name="name" class="form-control form-control-lg" placeholder="e.g. 20 Packets of Veg Biryani" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Quantity / Weight</label>
+                                <input type="text" name="quantity" class="form-control form-control-lg" placeholder="e.g. 10 KG or 25 Plates" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Pickup Address</label>
+                            <textarea name="address" class="form-control" rows="2" placeholder="Street name, Landmark, City..." required></textarea>
+                        </div>
+
+                        <div class="map-help mb-4">
+                            <h6 class="fw-bold text-success"><i class="fas fa-map-marker-alt me-2"></i>How to get Coordinates?</h6>
+                            <p class="small mb-0">Open Google Maps → Right-click on your location → Copy the numbers (e.g., 29.39, 79.45) and paste below.</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Latitude</label>
+                                <input type="text" name="lat" class="form-control" placeholder="29.3919" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Longitude</label>
+                                <input type="text" name="lng" class="form-control" placeholder="79.4543" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">When was it cooked?</label>
+                            <input type="text" name="cooked_time" class="form-control" placeholder="e.g. Today at 11:30 AM" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg w-100 fw-bold shadow">
+                            <i class="fas fa-paper-plane me-2"></i> Post Food Listing
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-muted py-4">
+        <p>Aarti Kandpal| Mini Project -</p>
+    </footer>
+
+</body>
+</html>

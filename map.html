@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Locations - Map View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map { height: 500px; width: 100%; border-radius: 15px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5 text-center">
+        <h2 class="fw-bold text-success mb-4">📍 Nearby Food Pickups</h2>
+        <div id="map"></div>
+        <div class="mt-4">
+            <a href="{{ url_for('recipient') }}" class="btn btn-secondary">Back to List</a>
+            <a href="/" class="btn btn-success">Home</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Default View (Nainital coordinates)
+        var map = L.map('map').setView([29.3919, 79.4543], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Loop through food items (Passed from Flask)
+        {% for item in food_list %}
+            // Note: Since we don't have lat/long in DB, we add a small random offset 
+            // for demonstration in mini-project
+            var lat = 29.3919 + (Math.random() - 0.5) * 0.02;
+            var lon = 79.4543 + (Math.random() - 0.5) * 0.02;
+
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup("<b>{{ item.name }}</b><br>Qty: {{ item.quantity }}<br>Loc: {{ item.address }}");
+        {% endfor %}
+    </script>
+</body>
+</html>
